@@ -23,6 +23,6 @@
   },
   "dependencies": {
     "shortid": "^2.2.8",
-    "functionly": "^0.0.1"
+    "functionly": "^0.0.2"
   }
 }
