@@ -1,5 +1,5 @@
 {
-  "name": "functionly-examples",
+  "name": "functionly-examples-tododb",
   "version": "0.0.1",
   "description": "",
   "scripts": {
@@ -23,6 +23,6 @@
   },
   "dependencies": {
     "shortid": "^2.2.8",
-    "functionly": "^0.0.2"
+    "functionly": "^0.0.3"
   }
 }
