@@ -1,7 +1,7 @@
 import { generate } from 'shortid'
 
 import { FunctionalService, FunctionalApi, annotations, DynamoDB } from 'functionly'
-const { role, apiGateway, environment, description, tag, runtime, param, inject, injectable, log } = annotations
+const { role, apiGateway, environment, description, tag, runtime, param, inject, injectable, log, dynamoTable } = annotations
 
 @role("arn:aws:iam::856324650258:role/corpjs-functionly")
 @runtime({ type: 'nodejs6.10', memorySize: 512, timeout: 3 })
@@ -9,7 +9,24 @@ export class TodoService extends FunctionalService { }
 
 
 @injectable
-@environment('%ClassName%_TABLE_NAME', '%ClassName%_corpjs_functionly')
+// @environment('%ClassName%_TABLE_NAME', '%ClassName%_corpjs_functionly')
+// OR
+@dynamoTable({
+    tableName: '%ClassName%_corpjs_functionly',
+    // environmentKey: '%ClassName%_TABLE_NAME',
+    // nativeConfig: {
+    //     AttributeDefinitions: [
+    //         { AttributeName: "id", AttributeType: "S" }
+    //     ],
+    //     KeySchema: [
+    //         { AttributeName: "id", KeyType: "HASH" }
+    //     ],
+    //     ProvisionedThroughput: {
+    //         ReadCapacityUnits: 2,
+    //         WriteCapacityUnits: 2
+    //     }
+    // }
+})
 export class TodoTable extends DynamoDB { }
 
 
@@ -19,7 +36,7 @@ export class TodoTable extends DynamoDB { }
 export class ValidateTodo extends TodoService {
 
     public async handle( @param name, @param description, @param status) {
-        const isValid = Math.random() > 0.3
+        const isValid = true
 
         return { isValid }
     }
@@ -38,7 +55,7 @@ export class PersistTodo extends TodoService {
     public async handle( @param name, @param description, @param status, @inject(TodoTable) db: DynamoDB) {
 
         let item = {
-            Id: generate(),
+            id: generate(),
             name,
             description,
             status
