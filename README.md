@@ -1,3 +1,15 @@
+# project config
+create a functionly.json file into your project
+## example:
+```js
+{
+    "awsRegion": "eu-central-1",
+    "awsBucket": "my-deploy-bucket",
+    "main": "./lib/todoDb.js",
+    "deployTarget": "aws",
+    "localPort": 3000
+}
+```
 # functionly-examples
 
 ## Typescript

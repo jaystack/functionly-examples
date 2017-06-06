@@ -26,3 +26,7 @@ create and setup your AWS IAM role (Lambda execution) \
 ```sh
 functionly deploy aws ./lib/index.js --aws-region eu-central-1 --aws-bucket my-deploy-bucket
 ```
+or if you configured a functionly.json in your project root
+```sh
+functionly deploy
+```
