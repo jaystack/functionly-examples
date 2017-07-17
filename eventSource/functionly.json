@@ -1,0 +1,8 @@
+{
+    "debug": false,
+    "awsRegion": "eu-central-1",
+    "main": "./lib/index.js",
+    "deployTarget": "aws",
+    "localPort": 3000,
+    "stage": "dev"
+}

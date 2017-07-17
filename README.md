@@ -7,7 +7,8 @@ create a functionly.json file into your project
     "awsBucket": "my-deploy-bucket",
     "main": "./lib/todoDb.js",
     "deployTarget": "aws",
-    "localPort": 3000
+    "localPort": 3000,
+    "stage": "dev"
 }
 ```
 # functionly-examples
@@ -15,6 +16,7 @@ create a functionly.json file into your project
 ## Typescript
 - [todoDB](https://github.com/jaystack/functionly-examples/tree/master/todoDB)
 - [todoDBAdvanced](https://github.com/jaystack/functionly-examples/tree/master/todoDBAdvanced)
+- [eventSource](https://github.com/jaystack/functionly-examples/tree/master/eventSource)
 
 ## ES6
 - [greeter](https://github.com/jaystack/functionly-examples/tree/master/greeter)
