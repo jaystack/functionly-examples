@@ -17,6 +17,10 @@ local deploy will create your tables in dynamoDB
 ```sh
 functionly deploy local ./lib/todoDB.js --aws-region eu-central-1
 ```
+or if you configured a functionly.json in your project root
+```sh
+functionly deploy local
+```
 
 # run in local
 ```sh
@@ -38,7 +42,7 @@ curl 'http://localhost:3000/getAllTodos'
 # deploy to aws
 create and setup your AWS IAM role (Lambda execution, dynamo table access) \
 ```sh
-functionly deploy aws ./lib/todoDB.js --aws-region eu-central-1 --aws-bucket my-deploy-bucket
+functionly deploy aws ./lib/todoDB.js --aws-region eu-central-1
 ```
 or if you configured a functionly.json in your project root
 ```sh

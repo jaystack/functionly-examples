@@ -1,37 +1,19 @@
 import { generate } from 'shortid'
 
 import { FunctionalService, FunctionalApi, annotations, DynamoDB } from 'functionly'
-const { role, apiGateway, environment, description, tag, runtime, param, inject, injectable, log, dynamoTable } = annotations
+const { role, rest, environment, description, tag, runtime, param, inject, injectable, log, dynamoTable } = annotations
 
-@role("arn:aws:iam::856324650258:role/corpjs-functionly")
 @runtime({ type: 'nodejs6.10', memorySize: 512, timeout: 3 })
 export class TodoService extends FunctionalService { }
 
 
 @injectable
-// @environment('%ClassName%_TABLE_NAME', '%ClassName%_corpjs_functionly')
-// OR
-@dynamoTable({
-    tableName: '%ClassName%_corpjs_functionly',
-    // environmentKey: '%ClassName%_TABLE_NAME',
-    // nativeConfig: {
-    //     AttributeDefinitions: [
-    //         { AttributeName: "id", AttributeType: "S" }
-    //     ],
-    //     KeySchema: [
-    //         { AttributeName: "id", KeyType: "HASH" }
-    //     ],
-    //     ProvisionedThroughput: {
-    //         ReadCapacityUnits: 2,
-    //         WriteCapacityUnits: 2
-    //     }
-    // }
-})
+@dynamoTable({ tableName: '%ClassName%_corpjs_functionly' })
 export class TodoTable extends DynamoDB { }
 
 
 @injectable
-@apiGateway({ path: '/validateTodo', method: 'post' })
+@rest({ path: '/validateTodo', methods: ['post'] })
 @description('validate Todo service')
 export class ValidateTodo extends TodoService {
 
@@ -48,7 +30,7 @@ export class ValidateTodo extends TodoService {
 
 
 @injectable
-@apiGateway({ path: '/persistTodo', method: 'post' })
+@rest({ path: '/persistTodo', methods: ['post'] })
 @description('persist Todo service')
 export class PersistTodo extends TodoService {
 
@@ -68,7 +50,7 @@ export class PersistTodo extends TodoService {
 }
 
 
-@apiGateway({ path: '/createTodo' })
+@rest({ path: '/createTodo', anonymous: true })
 @description('create Todo service')
 export class CreateTodo extends TodoService {
 
@@ -90,7 +72,7 @@ export class CreateTodo extends TodoService {
 
 
 
-@apiGateway({ path: '/getAllTodos', cors: true })
+@rest({ path: '/getAllTodos', cors: true, anonymous: true })
 @description('get all Todo service')
 export class GetAllTodos extends TodoService {
 
