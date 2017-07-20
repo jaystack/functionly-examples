@@ -41,8 +41,8 @@ public async handle( @param('Sns.Subject') subject,  @param('Sns.Message') messa
 # How to get original invoke parameters
 there is an `event` decorator which return the original parameters
 ```js
-public async handle( @event requestEventData) {
-    console.log(requestEventData.event)
-    console.log(requestEventData.context)
+public async handle( @serviceParams rawData) {
+    console.log(rawData.event)
+    console.log(rawData.context)
 }
 ```
