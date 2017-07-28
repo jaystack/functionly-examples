@@ -1,7 +1,7 @@
 import { generate } from 'shortid'
 
-import { FunctionalService, FunctionalApi, annotations, DynamoDB } from 'functionly'
-const { role, rest, environment, description, tag, aws, param, inject, injectable, log, dynamoTable } = annotations
+import { FunctionalService, FunctionalApi, DynamoDB } from 'functionly'
+import { role, rest, environment, description, tag, aws, param, inject, injectable, log, dynamoTable, serviceParams, request } from 'functionly'
 
 @aws({ type: 'nodejs6.10', memorySize: 512, timeout: 3 })
 export class TodoService extends FunctionalService { }

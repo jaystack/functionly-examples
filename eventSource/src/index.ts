@@ -1,7 +1,7 @@
 import { generate } from 'shortid'
 
-import { FunctionalService, annotations, DynamoDB, S3Storage, SimpleNotificationService } from 'functionly'
-const { rest, description, param, injectable, inject, dynamoTable, eventSource, s3Storage, sns } = annotations
+import { FunctionalService, DynamoDB, S3Storage, SimpleNotificationService } from 'functionly'
+import { rest, description, param, injectable, inject, dynamoTable, eventSource, s3Storage, sns } from 'functionly'
 
 @injectable
 @dynamoTable({ tableName: '%ClassName%-table' })

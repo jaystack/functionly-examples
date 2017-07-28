@@ -1,5 +1,5 @@
-import { FunctionalService, annotations } from 'functionly'
-const { role, runtime, rest, param  } = annotations
+import { FunctionalService } from 'functionly'
+import { role, runtime, rest, param  } from 'functionly'
 
 @rest({ path: '/hello' })
 class Greeter extends FunctionalService {
