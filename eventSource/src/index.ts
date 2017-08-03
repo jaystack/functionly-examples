@@ -12,20 +12,6 @@ export class EventStore extends DynamoDB { }
 @dynamoTable({ tableName: '%ClassName%-table' })
 export class Items extends DynamoDB { }
 
-@rest({ path: '/createItem', anonymous: true })
-export class CreateItem extends FunctionalService {
-    public async handle( @param name, @inject(Items) items: Items) {
-        await items.put({
-            Item: {
-                id: generate(),
-                name
-            }
-        })
-
-        return { message: `hello ${name}` }
-    }
-}
-
 @eventSource(Items)
 export class CaptureDynamoEvent extends FunctionalService {
     public async handle( @param dynamodb, @inject(EventStore) events: EventStore) {
@@ -39,6 +25,7 @@ export class CaptureDynamoEvent extends FunctionalService {
     }
 }
 
+@injectable
 @s3Storage({ bucketName: '%ClassName%-bucket' })
 export class FileStorage extends S3Storage { }
 
@@ -55,6 +42,7 @@ export class CaptureS3Event extends FunctionalService {
     }
 }
 
+@injectable
 @sns({ topicName: '%ClassName%-sns' })
 export class SNSEvents extends SimpleNotificationService { }
 
@@ -71,6 +59,37 @@ export class CaptureSNSEvent extends FunctionalService {
     }
 }
 
+
+
+@rest({ path: '/createItem', anonymous: true })
+export class CreateItem extends FunctionalService {
+    public async handle(
+        @param name,
+        @inject(Items) items: Items,
+        @inject(FileStorage) s3Files: FileStorage,
+        @inject(SNSEvents) snsTopic: SNSEvents
+    ) {
+        const value = generate()
+        await items.put({
+            Item: {
+                id: value,
+                name
+            }
+        })
+
+        await s3Files.putObject({
+            Body: `my body ${name}`,
+            Key: `test${value}.txt`
+        })
+
+        await snsTopic.publish({
+            Message: `my message ${name}`,
+            Subject: `my subject ${value}`
+        })
+
+        return { message: `hello ${name}` }
+    }
+}
 
 export const createItem = CreateItem.createInvoker()
 export const dynamoEvent = CaptureDynamoEvent.createInvoker()
