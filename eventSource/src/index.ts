@@ -1,16 +1,16 @@
 import { generate } from 'shortid'
 
-import { FunctionalService, DynamoDB, S3Storage, SimpleNotificationService } from 'functionly'
+import { FunctionalService, DynamoTable, S3Storage, SimpleNotificationService } from 'functionly'
 import { rest, description, param, injectable, inject, dynamoTable, eventSource, s3Storage, sns } from 'functionly'
 
-@injectable
+@injectable()
 @dynamoTable({ tableName: '%ClassName%-table' })
-export class EventStore extends DynamoDB { }
+export class EventStore extends DynamoTable { }
 
 
-@injectable
+@injectable()
 @dynamoTable({ tableName: '%ClassName%-table' })
-export class Items extends DynamoDB { }
+export class Items extends DynamoTable { }
 
 @eventSource(Items)
 export class CaptureDynamoEvent extends FunctionalService {
@@ -25,7 +25,7 @@ export class CaptureDynamoEvent extends FunctionalService {
     }
 }
 
-@injectable
+@injectable()
 @s3Storage({ bucketName: '%ClassName%-bucket' })
 export class FileStorage extends S3Storage { }
 
@@ -42,7 +42,7 @@ export class CaptureS3Event extends FunctionalService {
     }
 }
 
-@injectable
+@injectable()
 @sns({ topicName: '%ClassName%-sns' })
 export class SNSEvents extends SimpleNotificationService { }
 

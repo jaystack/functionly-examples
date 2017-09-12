@@ -20,8 +20,8 @@
     "@types/node": "^6.0.46",
     "typescript": "^2.3.0"
   },
-  "dependencies": {    
+  "dependencies": {
     "shortid": "^2.2.8",
-    "functionly": "^0.0.3"
+    "functionly": "^0.0.9"
   }
 }

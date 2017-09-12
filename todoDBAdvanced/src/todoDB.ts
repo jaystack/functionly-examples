@@ -1,15 +1,15 @@
 import { generate } from 'shortid'
 
-import { FunctionalService, FunctionalApi, DynamoDB } from 'functionly'
+import { FunctionalService, DynamoTable } from 'functionly'
 import { role, rest, environment, description, tag, aws, param, inject, injectable, log, dynamoTable } from 'functionly'
 
 @aws({ type: 'nodejs6.10', memorySize: 512, timeout: 3 })
 export class TodoService extends FunctionalService { }
 
 
-@injectable
+@injectable()
 @dynamoTable({ tableName: '%ClassName%_corpjs_functionly', })
-export class TodoTable extends DynamoDB {
+export class TodoTable extends DynamoTable {
     public async onInject({ parameter }) {
         console.log('onInject', parameter)
     }
@@ -20,7 +20,7 @@ export class TodoTable extends DynamoDB {
 }
 
 
-@injectable
+@injectable()
 @rest({ path: '/validateTodo', methods: ['post'] })
 @description('validate Todo service')
 export class ValidateTodo extends TodoService {
@@ -37,12 +37,12 @@ export class ValidateTodo extends TodoService {
 }
 
 
-@injectable
+@injectable()
 @rest({ path: '/persistTodo', methods: ['post'] })
 @description('persist Todo service')
 export class PersistTodo extends TodoService {
 
-    public async handle( @param name, @param description, @param status, @inject(TodoTable) db: DynamoDB) {
+    public async handle( @param name, @param description, @param status, @inject(TodoTable) db: DynamoTable) {
 
         let item = {
             id: generate(),
@@ -91,7 +91,7 @@ export class CreateTodo extends TodoService {
 export class GetAllTodos extends TodoService {
 
     public async handle(
-        @inject(TodoTable) db: DynamoDB
+        @inject(TodoTable) db: DynamoTable
     ) {
 
         let items: any = await db.scan()
