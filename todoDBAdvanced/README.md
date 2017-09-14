@@ -66,7 +66,7 @@ export class PersistTodo extends TodoService {
  
 ## onInject
 ```js
-export class TodoTable extends DynamoDB {
+export class TodoTable extends DynamoTable {
 
     public async onInject({ parameter }): Promise<void> {
         console.log('onInject', parameter)
