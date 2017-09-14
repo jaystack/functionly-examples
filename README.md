@@ -15,6 +15,7 @@ create a functionly.json file into your project
 
 ## Typescript
 - [todoDB](https://github.com/jaystack/functionly-examples/tree/master/todoDB)
+- [todoDB-mongo](https://github.com/jaystack/functionly-examples/tree/master/todoDB-mongo)
 - [todoDBAdvanced](https://github.com/jaystack/functionly-examples/tree/master/todoDBAdvanced)
 - [eventSource](https://github.com/jaystack/functionly-examples/tree/master/eventSource)
 
