@@ -1,9 +1,10 @@
 import { generate } from 'shortid'
 
-import { FunctionalService, MongoCollection } from 'functionly'
-import { role, rest, environment, description, tag, aws, param, inject, injectable, log, mongoCollection, mongoConnection, serviceParams, request } from 'functionly'
+import { FunctionalService, MongoCollection, NoCallbackWaitsForEmptyEventLoop } from 'functionly'
+import { role, rest, environment, description, tag, aws, param, inject, injectable, log, mongoCollection, mongoConnection, serviceParams, request, use } from 'functionly'
 
 @aws({ type: 'nodejs6.10', memorySize: 512, timeout: 3 })
+@use(NoCallbackWaitsForEmptyEventLoop)
 export class TodoService extends FunctionalService { }
 
 @injectable()

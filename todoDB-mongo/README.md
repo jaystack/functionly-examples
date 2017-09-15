@@ -29,7 +29,12 @@ curl 'http://localhost:3000/createTodo?name=corpjs&description=corpjs-meetup&sta
 curl 'http://localhost:3000/getAllTodos'
 ```
 
-
+# aws requirements
+```js
+@use(NoCallbackWaitsForEmptyEventLoop)
+export class TodoService extends FunctionalService { }
+```
+allows a Lambda function to return its result without close the database connection
 
 # deploy to aws (mongodb required)
 create and setup your mongodb in aws and set the connection url in application
