@@ -1,7 +1,7 @@
 import { generate } from 'shortid'
 
-import { FunctionalService, DynamoTable } from 'functionly'
-import { role, rest, environment, description, tag, aws, param, inject, injectable, log, dynamoTable, serviceParams, request } from 'functionly'
+import { FunctionalService, DynamoTable, Service } from 'functionly'
+import { rest, description, aws, param, inject, injectable, dynamoTable } from 'functionly'
 
 @aws({ type: 'nodejs6.10', memorySize: 512, timeout: 3 })
 export class TodoService extends FunctionalService { }
@@ -13,61 +13,46 @@ export class TodoTable extends DynamoTable { }
 
 
 @injectable()
-@rest({ path: '/validateTodo', methods: ['post'] })
-@description('validate Todo service')
-export class ValidateTodo extends TodoService {
-
+export class ValidateTodo extends Service {
     public async handle( @param name, @param description, @param status) {
         const isValid = true
-
         return { isValid }
-    }
-
-    public async invoke(params: { name: string, description: string, status: string }) {
-        return await super.invoke(params)
     }
 }
 
 
 @injectable()
-@rest({ path: '/persistTodo', methods: ['post'] })
-@description('persist Todo service')
-export class PersistTodo extends TodoService {
-
-    public async handle( @param name, @param description, @param status, @inject(TodoTable) db: DynamoTable) {
-
+export class PersistTodo extends Service {
+    public async handle( @param name, @param description, @param status, @inject(TodoTable) db: TodoTable) {
         let item = {
             id: generate(),
             name,
             description,
             status
         }
-
         await db.put({ Item: item })
-
         return item
     }
 }
 
 
-@rest({ path: '/createTodo', anonymous: true })
+@rest({ path: '/createTodo', methods: ['post'], anonymous: true, cors: true })
 @description('create Todo service')
 export class CreateTodo extends TodoService {
-
-    public async handle( @param name, @param description, @param status, @inject(ValidateTodo) validateTodo: ValidateTodo,
-        @inject(PersistTodo) persistTodo: PersistTodo
+    public async handle( 
+        @param name, 
+        @param description, 
+        @param status, 
+        @inject(ValidateTodo) validateTodo,
+        @inject(PersistTodo) persistTodo
     ) {
-
-        let validateResult = await validateTodo.invoke({ name, description, status })
+        let validateResult = await validateTodo({ name, description, status })
         if (!validateResult.isValid) {
             throw new Error('Todo validation error')
         }
-
-        let persistTodoResult = await persistTodo.invoke({ name, description, status })
-
+        let persistTodoResult = await persistTodo({ name, description, status })
         return { ok: 1, persistTodoResult }
     }
-
 }
 
 
@@ -75,19 +60,11 @@ export class CreateTodo extends TodoService {
 @rest({ path: '/getAllTodos', cors: true, anonymous: true })
 @description('get all Todo service')
 export class GetAllTodos extends TodoService {
-
-    public async handle(
-        @inject(TodoTable) db: DynamoTable
-    ) {
-
+    public async handle(@inject(TodoTable) db: TodoTable) {
         let items: any = await db.scan()
-
-        return { ok1: 1, items }
+        return { ok: 1, items }
     }
-
 }
 
-export const validateTodo = ValidateTodo.createInvoker()
-export const persistTodo = PersistTodo.createInvoker()
 export const createTodo = CreateTodo.createInvoker()
 export const getAllTodos = GetAllTodos.createInvoker()

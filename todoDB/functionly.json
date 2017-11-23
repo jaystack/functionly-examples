@@ -4,5 +4,5 @@
     "main": "./lib/todoDB.js",
     "deployTarget": "aws",
     "localPort": 3000,
-    "stage": "test"
+    "stage": "dev"
 }
