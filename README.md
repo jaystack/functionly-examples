@@ -4,7 +4,6 @@ create a functionly.json file into your project
 ```js
 {
     "awsRegion": "eu-central-1",
-    "awsBucket": "my-deploy-bucket",
     "main": "./lib/todoDb.js",
     "deployTarget": "aws",
     "localPort": 3000,
