@@ -28,7 +28,7 @@ functionly local
 ```
 then test it
 ```sh
-curl 'http://localhost:3000/createTodo?name=corpjs&description=corpjs-meetup&status=new'
+curl -d "@content/todoPayload.json" -H "Content-Type: application/json" -X POST http://localhost:3000/createTodo
 curl 'http://localhost:3000/getAllTodos'
 ```
 
@@ -43,6 +43,6 @@ it will create lambda functions and dynamoDB tables
 
 # run in aws
 ```sh
-aws lambda invoke --function-name CreateTodo --payload file://./content/todoPayload.json --region eu-central-1 ./dist/corpjs && cat ./dist/corpjs
-aws lambda invoke --function-name GetAllTodos --region eu-central-1 ./dist/corpjs && cat ./dist/corpjs
+aws lambda invoke --function-name CreateTodo-dev --payload file://./content/todoPayload.json --region eu-central-1 ./dist/corpjs && cat ./dist/corpjs
+aws lambda invoke --function-name GetAllTodos-dev --region eu-central-1 ./dist/corpjs && cat ./dist/corpjs
 ```
