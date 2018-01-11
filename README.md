@@ -21,3 +21,4 @@ create a functionly.json file into your project
 
 ## ES6
 - [greeter](https://github.com/jaystack/functionly-examples/tree/master/greeter)
+- [todoDB-es6](https://github.com/jaystack/functionly-examples/tree/master/todoDB-es6)
