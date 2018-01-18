@@ -1,5 +1,4 @@
 {
-    "debug": false,
     "awsRegion": "eu-central-1",
     "main": "./src/todoDB.js",
     "deployTarget": "aws",

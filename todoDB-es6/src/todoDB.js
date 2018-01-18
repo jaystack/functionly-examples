@@ -1,14 +1,14 @@
 import { generate } from 'shortid'
 
 import { FunctionalService, DynamoTable, Service } from 'functionly'
-import { rest, description, aws, param, inject, injectable, dynamoTable } from 'functionly'
+import { rest, description, aws, param, inject, injectable, dynamo } from 'functionly'
 
 @aws({ type: 'nodejs6.10', memorySize: 512, timeout: 3 })
 export class TodoService extends FunctionalService { }
 
 
 @injectable()
-@dynamoTable({ tableName: '%ClassName%_corpjs_functionly' })
+@dynamo()
 export class TodoTable extends DynamoTable { }
 
 
