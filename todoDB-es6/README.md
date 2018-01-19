@@ -53,7 +53,7 @@ Default `.babelrc`
 Default `functionly.json`
 ```js
 {
-    "awsRegion": "eu-central-1",
+    "awsRegion": "us-east-1",
     "main": "./src/todoDB.js",
     "deployTarget": "aws",
     "localPort": 3000,
