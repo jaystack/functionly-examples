@@ -256,6 +256,8 @@ functionly local
 ```
 
 ## AWS deployment
+> Disclaimer: As functionly provisions AWS services, charges may apply to your AWS account. We suggest you to visit [https://aws.amazon.com/pricing/services/](https://aws.amazon.com/pricing/services/) to revise the possible AWS costs.
+
 > [Set up](http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html) AWS Credentials before deployment.
 
 > Note: Create the [functionly.json](https://raw.githubusercontent.com/jaystack/functionly-examples/master/todoDB/functionly.json) in the project for short commands. Also, you don't have to pass all arguments. As the `deployTarget` is configured as `aws` (the default value configured) then the deploy command will use this as deployment target.
