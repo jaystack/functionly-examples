@@ -1,7 +1,7 @@
 import { generate } from 'shortid'
 
-import { FunctionalService, DynamoTable, S3Storage, SimpleNotificationService } from 'functionly'
-import { rest, description, param, injectable, inject, dynamoTable, eventSource, s3Storage, sns } from 'functionly'
+import { FunctionalService, DynamoTable, S3Storage, SimpleNotificationService, CloudWatchEvent, Service } from 'functionly'
+import { rest, description, param, injectable, inject, dynamoTable, eventSource, s3Storage, sns, cloudWatchEvent } from 'functionly'
 
 @injectable()
 @dynamoTable({ tableName: '%ClassName%-table' })
@@ -59,6 +59,23 @@ export class CaptureSNSEvent extends FunctionalService {
     }
 }
 
+@injectable()
+@cloudWatchEvent({ scheduleExpression: 'rate(10 minutes)' })
+export class TenMinutesSchedule extends CloudWatchEvent {}
+
+@eventSource(TenMinutesSchedule)
+export class CaptureScheduleEvent extends FunctionalService {
+    public async handle(@inject(EventStore) events: EventStore) {
+        await events.put({
+            Item: {
+                id: generate(),
+                type: 'timed event',
+                event: {}
+            }
+        })
+    }
+}
+
 
 
 @rest({ path: '/createItem', anonymous: true })
@@ -95,3 +112,4 @@ export const createItem = CreateItem.createInvoker()
 export const dynamoEvent = CaptureDynamoEvent.createInvoker()
 export const s3Event = CaptureS3Event.createInvoker()
 export const snsEvent = CaptureSNSEvent.createInvoker()
+export const scheduleEventEvent = CaptureScheduleEvent.createInvoker()

@@ -24,6 +24,6 @@
     "babel-preset-es2015-node5": "^1.2.0"
   },
   "dependencies": {
-    "functionly": "^0.0.9"
+    "functionly": "0.0.34"
   }
 }

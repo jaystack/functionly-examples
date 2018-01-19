@@ -1,6 +1,6 @@
 {
     "debug": false,
-    "awsRegion": "eu-central-1",
+    "awsRegion": "ue-east-1",
     "main": "./lib/todoDB.js",
     "deployTarget": "aws",
     "localPort": 3000,

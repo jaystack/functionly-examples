@@ -5,6 +5,7 @@ this example works only in AWS
 - DynamoDB
 - S3
 - SNS
+- Event
 - (ApiGateway)
 
 
