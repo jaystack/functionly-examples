@@ -3,7 +3,7 @@ create a functionly.json file into your project
 ## example:
 ```js
 {
-    "awsRegion": "eu-central-1",
+    "awsRegion": "us-east-1",
     "main": "./lib/todoDb.js",
     "deployTarget": "aws",
     "localPort": 3000,

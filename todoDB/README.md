@@ -15,7 +15,7 @@ docker run -d --name dynamodb -p 8000:8000 peopleperhour/dynamodb
 ```
 local deploy will create your tables in dynamoDB
 ```sh
-functionly deploy local ./lib/todoDB.js --aws-region eu-central-1
+functionly deploy local ./lib/todoDB.js --aws-region us-east-1
 ```
 or if you configured a functionly.json in your project root
 ```sh
@@ -42,7 +42,7 @@ curl 'http://localhost:3000/getAllTodos'
 # deploy to aws
 create and setup your AWS IAM role (Lambda execution, dynamo table access) \
 ```sh
-functionly deploy aws ./lib/todoDB.js --aws-region eu-central-1
+functionly deploy aws ./lib/todoDB.js --aws-region us-east-1
 ```
 or if you configured a functionly.json in your project root
 ```sh
@@ -52,6 +52,6 @@ it will create lambda functions and dynamoDB tables
 
 # run in aws
 ```sh
-aws lambda invoke --function-name CreateTodo --payload file://./content/todoPayload.json --region eu-central-1 ./dist/corpjs && cat ./dist/corpjs
-aws lambda invoke --function-name GetAllTodos --region eu-central-1 ./dist/corpjs && cat ./dist/corpjs
+aws lambda invoke --function-name CreateTodo --payload file://./content/todoPayload.json --region us-east-1 ./dist/corpjs && cat ./dist/corpjs
+aws lambda invoke --function-name GetAllTodos --region us-east-1 ./dist/corpjs && cat ./dist/corpjs
 ```
