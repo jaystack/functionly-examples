@@ -1,20 +1,20 @@
 import { generate } from 'shortid'
 
 import { FunctionalService, DynamoTable, Service } from 'functionly'
-import { rest, description, aws, param, inject, injectable, dynamoTable } from 'functionly'
+import { rest, description, aws, param, inject, injectable, dynamo } from 'functionly'
 
 @aws({ type: 'nodejs6.10', memorySize: 512, timeout: 3 })
 export class TodoService extends FunctionalService { }
 
 
 @injectable()
-@dynamoTable({ tableName: '%ClassName%_corpjs_functionly' })
+@dynamo()
 export class TodoTable extends DynamoTable { }
 
 
 @injectable()
 export class ValidateTodo extends Service {
-    public async handle( @param name, @param description, @param status) {
+    public static async handle( @param name, @param description, @param status) {
         const isValid = true
         return { isValid }
     }
@@ -23,7 +23,7 @@ export class ValidateTodo extends Service {
 
 @injectable()
 export class PersistTodo extends Service {
-    public async handle( @param name, @param description, @param status, @inject(TodoTable) db: TodoTable) {
+    public static async handle( @param name, @param description, @param status, @inject(TodoTable) db: TodoTable) {
         let item = {
             id: generate(),
             name,
@@ -39,7 +39,7 @@ export class PersistTodo extends Service {
 @rest({ path: '/createTodo', methods: ['post'], anonymous: true, cors: true })
 @description('create Todo service')
 export class CreateTodo extends TodoService {
-    public async handle( 
+    public static async handle( 
         @param name, 
         @param description, 
         @param status, 
@@ -60,7 +60,7 @@ export class CreateTodo extends TodoService {
 @rest({ path: '/getAllTodos', cors: true, anonymous: true })
 @description('get all Todo service')
 export class GetAllTodos extends TodoService {
-    public async handle(@inject(TodoTable) db: TodoTable) {
+    public static async handle(@inject(TodoTable) db: TodoTable) {
         let items: any = await db.scan()
         return { ok: 1, items }
     }
