@@ -18,7 +18,7 @@ export class Items extends DynamoDB { }
 ```js
 @eventSource(Items)
 export class CaptureDynamoEvent extends FunctionalService {
-    public async handle( @param dynamodb) {
+    public static async handle( @param dynamodb) {
         ...
     }
 }
@@ -31,18 +31,18 @@ there are specific parameters for eventSource data
 
 example (you can rename your property):
 ```js
-public async handle( @param dynamodb) {}
-public async handle( @param('dynamodb') p1) {}
+public static async handle( @param dynamodb) {}
+public static async handle( @param('dynamodb') p1) {}
 ```
 you can resolve deep object properties with param decorator
 ```js
-public async handle( @param('Sns.Subject') subject,  @param('Sns.Message') message) {}
+public static async handle( @param('Sns.Subject') subject,  @param('Sns.Message') message) {}
 ```
 
 # How to get original invoke parameters
 there is an `event` decorator which return the original parameters
 ```js
-public async handle( @serviceParams rawData) {
+public static async handle( @serviceParams rawData) {
     console.log(rawData.event)
     console.log(rawData.context)
 }

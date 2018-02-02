@@ -1,20 +1,20 @@
 import { generate } from 'shortid'
 
 import { FunctionalService, DynamoTable, S3Storage, SimpleNotificationService, CloudWatchEvent, Service } from 'functionly'
-import { rest, description, param, injectable, inject, dynamoTable, eventSource, s3Storage, sns, cloudWatchEvent } from 'functionly'
+import { rest, description, param, injectable, inject, dynamo, eventSource, s3Storage, sns, cloudWatchEvent } from 'functionly'
 
 @injectable()
-@dynamoTable({ tableName: '%ClassName%-table' })
+@dynamo()
 export class EventStore extends DynamoTable { }
 
 
 @injectable()
-@dynamoTable({ tableName: '%ClassName%-table' })
+@dynamo()
 export class Items extends DynamoTable { }
 
 @eventSource(Items)
 export class CaptureDynamoEvent extends FunctionalService {
-    public async handle( @param dynamodb, @inject(EventStore) events: EventStore) {
+    public static async handle( @param dynamodb, @inject(EventStore) events: EventStore) {
         await events.put({
             Item: {
                 id: generate(),
@@ -26,12 +26,12 @@ export class CaptureDynamoEvent extends FunctionalService {
 }
 
 @injectable()
-@s3Storage({ bucketName: '%ClassName%-bucket' })
+@s3Storage()
 export class FileStorage extends S3Storage { }
 
 @eventSource(FileStorage)
 export class CaptureS3Event extends FunctionalService {
-    public async handle( @param s3, @inject(EventStore) events: EventStore) {
+    public static async handle( @param s3, @inject(EventStore) events: EventStore) {
         await events.put({
             Item: {
                 id: generate(),
@@ -43,12 +43,12 @@ export class CaptureS3Event extends FunctionalService {
 }
 
 @injectable()
-@sns({ topicName: '%ClassName%-sns' })
+@sns()
 export class SNSEvents extends SimpleNotificationService { }
 
 @eventSource(SNSEvents)
 export class CaptureSNSEvent extends FunctionalService {
-    public async handle( @param Sns, @inject(EventStore) events: EventStore) {
+    public static async handle( @param Sns, @inject(EventStore) events: EventStore) {
         await events.put({
             Item: {
                 id: generate(),
@@ -65,7 +65,7 @@ export class TenMinutesSchedule extends CloudWatchEvent {}
 
 @eventSource(TenMinutesSchedule)
 export class CaptureScheduleEvent extends FunctionalService {
-    public async handle(@inject(EventStore) events: EventStore) {
+    public static async handle(@inject(EventStore) events: EventStore) {
         await events.put({
             Item: {
                 id: generate(),
@@ -80,7 +80,7 @@ export class CaptureScheduleEvent extends FunctionalService {
 
 @rest({ path: '/createItem', anonymous: true })
 export class CreateItem extends FunctionalService {
-    public async handle(
+    public static async handle(
         @param name,
         @inject(Items) items: Items,
         @inject(FileStorage) s3Files: FileStorage,

@@ -18,10 +18,11 @@
   "homepage": "https://github.com/jaystack/functionly-examples#readme",
   "devDependencies": {
     "@types/node": "^6.0.46",
+    "ts-loader": "^3.4.0",
     "typescript": "^2.3.0"
   },
   "dependencies": {
     "shortid": "^2.2.8",
-    "functionly": "0.0.34"
+    "functionly": "0.0.42"
   }
 }
