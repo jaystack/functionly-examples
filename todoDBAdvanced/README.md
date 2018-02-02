@@ -19,11 +19,11 @@ export class GetAllTodos extends TodoService {
     // onHandle_aws
     // onHandle_local
 
-    public async onHandle_aws(event, context, cb): Promise<any> {
+    public static async onHandle_aws(event, context, cb): Promise<any> {
         console.log('Hello onHandle_aws')
     }
 
-    public async onHandle_local(req, res, next): Promise<any> {
+    public static async onHandle_local(req, res, next): Promise<any> {
         console.log('Hello onHandle_local')
     }
 }
@@ -32,7 +32,7 @@ return any value if you want handle the result
 ```js
 export class GetAllTodos extends TodoService {
     ...
-    public async onHandle_local(req, res, next): Promise<any> {
+    public static async onHandle_local(req, res, next): Promise<any> {
         console.log('Hello onHandle_local')
         res.json({ ok1: 2 })
         return true
@@ -47,7 +47,7 @@ export class GetAllTodos extends TodoService {
 ```js
 export class PersistTodo extends TodoService {
     ...
-    public async onInvoke({ params, invokeConfig }): Promise<void> {
+    public static async onInvoke({ params, invokeConfig }): Promise<void> {
         console.log('onInvoke', params, invokeConfig)
     }
 
@@ -58,7 +58,7 @@ export class PersistTodo extends TodoService {
 
     // available parameters:
     // invokeParams, params, invokeConfig, parameterMapping, currentEnvironment, environmentMode 
-    public async onInvoke_aws({ params }): Promise<void> {
+    public static async onInvoke_aws({ params }): Promise<void> {
         console.log('onInvoke_aws', params)
     }
 }

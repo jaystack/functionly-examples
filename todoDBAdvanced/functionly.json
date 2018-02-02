@@ -1,8 +1,10 @@
 {
     "debug": false,
     "awsRegion": "us-east-1",
-    "main": "./lib/todoDB.js",
+    "main": "./src/todoDB.ts",
     "deployTarget": "aws",
     "localPort": 3000,
-    "stage": "dev"
+    "stage": "dev",
+    "watch": true,
+    "compile": "ts-loader"
 }
