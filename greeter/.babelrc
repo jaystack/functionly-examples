@@ -1,9 +1,5 @@
 {
-  "plugins": [
-    "functionly-annotations",
-    "transform-decorators-legacy"
-  ],
   "presets": [
-    "es2015-node5"
+    "functionly-aws"
   ]
 }

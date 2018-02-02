@@ -1,18 +1,13 @@
 # greeter
 
-## install and build
+## install
 ```sh
 npm install
-npm run build
 ```
 # run in local
+run the project with functionly CLI
 ```sh
-npm start
-```
-or
-```sh
-npm run build
-functionly local
+functionly start
 ```
 then test it
 ```sh
@@ -22,11 +17,8 @@ curl 'http://localhost:3000/hello?name=world'
 
 
 # deploy to aws
-create and setup your AWS IAM role (Lambda execution) \
-```sh
-functionly deploy aws ./lib/index.js --aws-region us-east-1
-```
-or if you configured a functionly.json in your project root
+create and setup your AWS IAM role (Lambda execution)
+
 ```sh
 functionly deploy
 ```

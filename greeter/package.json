@@ -17,13 +17,11 @@
   },
   "homepage": "https://github.com/jaystack/functionly-examples#readme",
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.24.1",
-    "babel-plugin-functionly-annotations": "^0.0.1",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-es2015-node5": "^1.2.0"
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-functionly-aws": "^1.0.1"
   },
   "dependencies": {
-    "functionly": "0.0.34"
+    "functionly": "0.0.42"
   }
 }
