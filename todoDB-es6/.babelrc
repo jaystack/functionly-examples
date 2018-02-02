@@ -1,10 +1,3 @@
 {
-  "plugins": [
-    "functionly-annotations",
-    "transform-decorators-legacy",
-    "transform-async-to-generator"
-  ],
-  "presets": [
-    "es2015-node5"
-  ]
+	"presets": [ "functionly-aws" ]
 }

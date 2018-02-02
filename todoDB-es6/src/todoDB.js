@@ -14,7 +14,7 @@ export class TodoTable extends DynamoTable { }
 
 @injectable()
 export class ValidateTodo extends Service {
-    async handle( @param name, @param description, @param status) {
+    static async handle( @param name, @param description, @param status) {
         const isValid = true
         return { isValid }
     }
@@ -23,7 +23,7 @@ export class ValidateTodo extends Service {
 
 @injectable()
 export class PersistTodo extends Service {
-    async handle( @param name, @param description, @param status, @inject(TodoTable) db) {
+    static async handle( @param name, @param description, @param status, @inject(TodoTable) db) {
         let item = {
             id: generate(),
             name,
@@ -39,7 +39,7 @@ export class PersistTodo extends Service {
 @rest({ path: '/createTodo', methods: ['post'], anonymous: true, cors: true })
 @description('create Todo service')
 export class CreateTodo extends TodoService {
-    async handle( 
+    static async handle( 
         @param name, 
         @param description, 
         @param status, 
@@ -60,7 +60,7 @@ export class CreateTodo extends TodoService {
 @rest({ path: '/getAllTodos', cors: true, anonymous: true })
 @description('get all Todo service')
 export class GetAllTodos extends TodoService {
-    async handle(@inject(TodoTable) db) {
+    static async handle(@inject(TodoTable) db) {
         let items = await db.scan()
         return { ok: 1, items }
     }
