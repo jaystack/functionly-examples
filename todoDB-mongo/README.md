@@ -3,7 +3,6 @@
 ## install and build
 ```sh
 npm install
-npm run build
 ```
 
 
@@ -16,21 +15,18 @@ docker run -d --name mongodb -p 27017:27017 mongodb
 
 # run in local
 ```sh
-npm start
-```
-or
-```sh
-npm run build
-functionly local 3000 ./lib/todoDB.js
+functionly start
 ```
 then test it
 ```sh
-curl 'http://localhost:3000/createTodo?name=corpjs&description=corpjs-meetup&status=new'
+curl -d '@content/todoPayload.json' -H "Content-Type: application/json" -X POST http://localhost:3000/createTodo
 curl 'http://localhost:3000/getAllTodos'
 ```
 
 # aws requirements
 ```js
+import { NoCallbackWaitsForEmptyEventLoop } from 'functionly'
+
 @use(NoCallbackWaitsForEmptyEventLoop)
 export class TodoService extends FunctionalService { }
 ```
@@ -39,16 +35,12 @@ allows a Lambda function to return its result without close the database connect
 # deploy to aws (mongodb required)
 create and setup your mongodb in aws and set the connection url in application
 ```sh
-functionly deploy aws ./lib/todoDB.js --aws-region us-east-1
-```
-or if you configured a functionly.json in your project root
-```sh
 functionly deploy
 ```
 it will create lambda functions and dynamoDB tables
 
 # run in aws
 ```sh
-aws lambda invoke --function-name CreateTodo-example --payload file://./content/todoPayload.json --region us-east-1 ./dist/corpjs && cat ./dist/corpjs
-aws lambda invoke --function-name GetAllTodos-example --region us-east-1 ./dist/corpjs && cat ./dist/corpjs
+aws lambda invoke --function-name CreateTodo-dev --payload file://./content/todoPayload.json --region us-east-1 `tty`
+aws lambda invoke --function-name GetAllTodos-dev --region us-east-1 `tty`
 ```

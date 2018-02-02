@@ -18,13 +18,13 @@ export class TodoTable extends MongoCollection { }
 @description('validate Todo service')
 export class ValidateTodo extends TodoService {
 
-    public async handle( @param name, @param description, @param status) {
+    public static async handle( @param name, @param description, @param status) {
         const isValid = true
 
         return { isValid }
     }
 
-    public async invoke(params: { name: string, description: string, status: string }) {
+    public static async invoke(params: { name: string, description: string, status: string }) {
         return await super.invoke(params)
     }
 }
@@ -35,7 +35,7 @@ export class ValidateTodo extends TodoService {
 @description('persist Todo service')
 export class PersistTodo extends TodoService {
 
-    public async handle( @param name, @param description, @param status, @inject(TodoTable) db: any) {
+    public static async handle( @param name, @param description, @param status, @inject(TodoTable) db: any) {
 
         let item = {
             _id: generate(),
@@ -51,20 +51,20 @@ export class PersistTodo extends TodoService {
 }
 
 
-@rest({ path: '/createTodo', anonymous: true })
+@rest({ path: '/createTodo', methods: ['post'], anonymous: true })
 @description('create Todo service')
 export class CreateTodo extends TodoService {
 
-    public async handle( @param name, @param description, @param status, @inject(ValidateTodo) validateTodo: ValidateTodo,
-        @inject(PersistTodo) persistTodo: PersistTodo
+    public static async handle( @param name, @param description, @param status, @inject(ValidateTodo) validateTodo,
+        @inject(PersistTodo) persistTodo
     ) {
 
-        let validateResult = await validateTodo.invoke({ name, description, status })
+        let validateResult = await validateTodo({ name, description, status })
         if (!validateResult.isValid) {
             throw new Error('Todo validation error')
         }
 
-        let persistTodoResult = await persistTodo.invoke({ name, description, status })
+        let persistTodoResult = await persistTodo({ name, description, status })
 
         return { ok: 1, persistTodoResult }
     }
@@ -77,7 +77,7 @@ export class CreateTodo extends TodoService {
 @description('get all Todo service')
 export class GetAllTodos extends TodoService {
 
-    public async handle(
+    public static async handle(
         @inject(TodoTable) db: TodoTable
     ) {
 
