@@ -36,7 +36,7 @@ export class PersistTodo extends Service {
 }
 
 
-@rest({ path: '/createTodo', methods: ['post'], anonymous: true, cors: true })
+@rest({ path: '/createTodo', methods: ['post'] })
 @description('create Todo service')
 export class CreateTodo extends TodoService {
     static async handle( 
@@ -57,7 +57,7 @@ export class CreateTodo extends TodoService {
 
 
 
-@rest({ path: '/getAllTodos', cors: true, anonymous: true })
+@rest({ path: '/getAllTodos' })
 @description('get all Todo service')
 export class GetAllTodos extends TodoService {
     static async handle(@inject(TodoTable) db) {

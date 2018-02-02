@@ -22,6 +22,6 @@
     "babel-preset-functionly-aws": "^1.0.1"
   },
   "dependencies": {
-    "functionly": "0.0.42"
+    "functionly": "0.0.44"
   }
 }

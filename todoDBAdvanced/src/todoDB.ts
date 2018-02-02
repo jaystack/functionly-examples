@@ -66,7 +66,7 @@ export class PersistTodo extends TodoService {
 }
 
 
-@rest({ path: '/createTodo', methods: ['post'], anonymous: true })
+@rest({ path: '/createTodo', methods: ['post'] })
 @description('create Todo service')
 export class CreateTodo extends TodoService {
 
@@ -86,7 +86,7 @@ export class CreateTodo extends TodoService {
 
 }
 
-@rest({ path: '/getAllTodos', cors: true, anonymous: true })
+@rest({ path: '/getAllTodos' })
 @description('get all Todo service')
 export class GetAllTodos extends TodoService {
 

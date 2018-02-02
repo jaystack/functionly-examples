@@ -78,7 +78,7 @@ export class CaptureScheduleEvent extends FunctionalService {
 
 
 
-@rest({ path: '/createItem', anonymous: true })
+@rest({ path: '/createItem' })
 export class CreateItem extends FunctionalService {
     public static async handle(
         @param name,
