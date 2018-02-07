@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "build": "babel src --out-dir lib",
-    "start": "npm run build && functionly local 3000 ./lib/index.js"
+    "start": "functionly start"
   },
   "repository": {
     "type": "git",
