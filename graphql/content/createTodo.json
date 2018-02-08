@@ -1,0 +1,8 @@
+{
+	"query": "mutation createTodo($name: String, $description: String, $status: String){createTodo(name: $name, description: $description, status: $status) {id,name}}",
+	"variables":{
+		"name":"functionly-graphql",
+		"description":"desc...",
+		"status":"graphql"
+	}
+}

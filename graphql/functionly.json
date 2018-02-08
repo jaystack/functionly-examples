@@ -1,0 +1,9 @@
+{
+    "awsRegion": "us-east-1",
+    "main": "./src/index.js",
+    "deployTarget": "aws",
+    "localPort": 3000,
+    "stage": "dev",
+    "watch": true,
+    "compile": "babel-loader"
+}

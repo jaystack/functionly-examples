@@ -1,0 +1,28 @@
+{
+  "name": "functionly-examples-graphql",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "start": "functionly start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaystack/functionly-examples.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaystack/functionly-examples/issues"
+  },
+  "homepage": "https://github.com/jaystack/functionly-examples#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-functionly-aws": "^1.0.1"
+  },
+  "dependencies": {
+    "functionly": "0.0.45",
+    "graphql": "^0.12.3",
+    "shortid": "^2.2.8"
+  }
+}

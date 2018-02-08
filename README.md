@@ -18,6 +18,7 @@ The `functionly.json` contains the default configuration of the CLI, just create
 ## Javascript
 - [greeter](https://github.com/jaystack/functionly-examples/tree/master/greeter)
 - [todoDB](https://github.com/jaystack/functionly-examples/tree/master/todoDB-es6)
+- [graphql](https://github.com/jaystack/functionly-examples/tree/master/graphql)
 
 ## Typescript
 - [todoDB](https://github.com/jaystack/functionly-examples/tree/master/todoDB)
